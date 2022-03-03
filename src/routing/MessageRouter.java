@@ -84,8 +84,9 @@ public abstract class MessageRouter {
 	/** Maximum Ttl value */
 	public static final int MAX_TTL_VALUE = 35791394;
 
-	// for selfish
-	public static final int DENIED_SELFISH = -4;
+	//selfish
+	//selfish
+	public static final int DENIED_SELFISH = -6;
 
 	private List<MessageListener> mListeners;
 	/** The messages being transferred with msgID_hostName keys */
@@ -317,8 +318,11 @@ public abstract class MessageRouter {
 		if (m == null) throw new SimError("no message for id " +
 				id + " to send at " + this.host);
 
+		// if (receiveMessage(m, this.host)==DENIED_SELFISH) throw new SimError("HELLO");
+
 		m2 = m.replicate();	// send a replicate of the message
 		to.receiveMessage(m2, this.host);
+		
 	}
 
 	/**
@@ -345,13 +349,12 @@ public abstract class MessageRouter {
 	public int receiveMessage(Message m, DTNHost from) {
 		Message newMessage = m.replicate();
 
-		if(getHost().getSelfishBehaviorStatus()){
 			if(m.getTo()!=getHost()){
 				if(!getHost().wantToCooperate()){
+					System.out.println("DENIED_SELFISH");
 					return DENIED_SELFISH;
 				}
 			}
-		}
 
 		this.putToIncomingBuffer(newMessage, from);
 		newMessage.addNodeOnPath(this.host);
@@ -359,7 +362,7 @@ public abstract class MessageRouter {
 		for (MessageListener ml : this.mListeners) {
 			ml.messageTransferStarted(newMessage, from, getHost());
 		}
-
+		System.out.println("RCV_OK");
 		return RCV_OK; // superclass always accepts messages
 	}
 	/**

@@ -14,6 +14,7 @@ import routing.MessageRouter;
 import routing.util.RoutingInfo;
 
 import static core.Constants.DEBUG;
+// import static core.SimScenario;
 
 import java.util.Random;
 /**
@@ -552,6 +553,7 @@ public class DTNHost implements Comparable<DTNHost> {
 			
 			return false;
 		}
+		// return false;
 	}
 
 	public boolean getSelfishBehaviorStatus() {
@@ -567,6 +569,7 @@ public class DTNHost implements Comparable<DTNHost> {
 		if(wantToCooperate() == false)
 		return true;
 		else return false;
+		// return true;
 	}
 
 }

@@ -84,6 +84,7 @@ public class SimScenario implements Serializable {
 
 	// selfish
 	public static final String SELF_BEHAVIOR = "selfishBehavior";
+	public static final String SELF_DEGREE = "selfishDegree";
 
 	/** The world instance */
 	private World world;
@@ -111,6 +112,7 @@ public class SimScenario implements Serializable {
 
 	// selfish
 	private boolean selfishBehavior;
+	private int selfishDegree;
 
 	private SimMap simMap;
 
@@ -134,6 +136,10 @@ public class SimScenario implements Serializable {
 		myinstance = null;
 	}
 
+	public boolean getSelfishStatus() {
+		return this.selfishBehavior;
+	}
+
 	/**
 	 * Creates a scenario based on Settings object.
 	 */
@@ -148,6 +154,7 @@ public class SimScenario implements Serializable {
 
 		// selfish
 		this.selfishBehavior = s.getBoolean(SELF_BEHAVIOR);
+		this.selfishDegree = s.getInt(SELF_DEGREE);
 
 		s.ensurePositiveValue(nrofGroups, NROF_GROUPS_S);
 		s.ensurePositiveValue(endTime, END_TIME_S);
@@ -174,6 +181,7 @@ public class SimScenario implements Serializable {
 			createHosts();
 		}
 		else{
+			System.out.println("SIM_SENARIO");
 			createSelfishHosts();
 		}
 
@@ -505,7 +513,7 @@ public class SimScenario implements Serializable {
 		}
 		if(this.selfishBehavior){
 			for(int i=0; i<hosts.size();++i){
-				hosts.get(i).setSelfishDegree(80);
+				hosts.get(i).setSelfishDegree(selfishDegree);
 			}
 		}
 	}
