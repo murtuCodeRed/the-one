@@ -9,11 +9,6 @@ Scenario.updateInterval = 0.1
 # 43200s == 12h
 Scenario.endTime = 43200
 
-##selfish
-Scenario.selfishBehavior= true
-Scenario.selfishDegree = 100
-Scenario.selfishSubSet = 100
-
 ## Interface-specific settings:
 # type : which interface class the interface belongs to
 # For different types, the sub-parameters are interface-specific
